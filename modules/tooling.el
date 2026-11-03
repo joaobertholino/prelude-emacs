@@ -7,10 +7,16 @@
 (add-to-list 'auto-mode-alist '("\\.tsx\\'" . my/prelude-tsx-mode))
 
 (with-eval-after-load 'eglot
+  (defclass my/prelude-html-server (eglot-lsp-server) ())
+  (cl-defmethod eglot-client-capabilities :around ((_server my/prelude-html-server))
+    "Use the project root instead of unsupported dynamic HTML workspace folders."
+    (let ((capabilities (cl-call-next-method)))
+      (plist-put (plist-get capabilities :workspace) :workspaceFolders :json-false)
+      capabilities))
   (setq eglot-server-programs
         (append
          '(((my/prelude-tsx-mode :language-id "typescriptreact") . ("typescript-language-server" "--stdio"))
-           ((web-mode :language-id "html") . ("vscode-html-language-server" "--stdio"))
+           ((web-mode :language-id "html") . (my/prelude-html-server "vscode-html-language-server" "--stdio"))
            (((python-mode :language-id "python") (python-ts-mode :language-id "python")) . ("pyright-langserver" "--stdio"))
            (((js-mode :language-id "javascript") (js-ts-mode :language-id "javascript")
              (typescript-mode :language-id "typescript") (typescript-ts-mode :language-id "typescript")
@@ -37,3 +43,18 @@
         (alist-get 'python-ts-mode apheleia-mode-alist) 'black
         (alist-get 'sh-mode apheleia-mode-alist) 'shfmt
         (alist-get 'bash-ts-mode apheleia-mode-alist) 'shfmt))
+
+(defun my/prelude-check-tools ()
+  "Check the external programs required by the personal configuration."
+  (interactive)
+  (let* ((programs '("pandoc" "prettier" "node" "rg" "fd" "ag"
+                     "shellcheck" "shfmt" "black" "isort" "flake8"
+                     "latexmk" "lualatex" "biber" "chktex" "latexindent" "zathura"
+                     "pyright-langserver" "typescript-language-server"
+                     "vscode-html-language-server" "vscode-css-language-server"
+                     "vscode-json-language-server" "yaml-language-server"
+                     "bash-language-server"))
+         (missing (seq-remove #'executable-find programs)))
+    (if missing
+        (user-error "Missing tools: %s" (mapconcat #'identity missing ", "))
+      (message "All %d required external tools are available" (length programs)))))

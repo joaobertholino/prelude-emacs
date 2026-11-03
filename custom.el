@@ -7,16 +7,16 @@
  '(package-selected-packages
    '(ace-window ag apheleia browse-kill-ring cape cdlatex citar
                 cmake-mode company-auctex copilot corfu crux diff-hl
-                diminish discover-my-major easy-kill elisp-slime-nav
-                embark-consult evil-numbers evil-surround
-                evil-visualstar exec-path-from-shell expand-region
-                flycheck-eglot git-modes git-timemachine guru-mode
-                helm helm-projectile hl-todo imenu-anywhere magit
-                marginalia markdown-mode move-text operate-on-number
-                orderless projectile rainbow-delimiters rainbow-mode
-                smartparens super-save typescript-mode undo-tree
-                vertico volatile-highlights web-mode yaml-mode
-                zenburn-theme zop-to-char)))
+                diminish discover-my-major easy-kill eglot
+                elisp-slime-nav embark-consult evil-numbers
+                evil-surround evil-visualstar exec-path-from-shell
+                expand-region flycheck-eglot git-modes git-timemachine
+                guru-mode helm helm-projectile hl-todo imenu-anywhere
+                magit marginalia markdown-mode move-text
+                operate-on-number orderless projectile
+                rainbow-delimiters rainbow-mode smartparens super-save
+                typescript-mode undo-tree vertico volatile-highlights
+                web-mode yaml-mode zenburn-theme zop-to-char)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
