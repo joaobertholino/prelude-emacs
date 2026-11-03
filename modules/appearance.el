@@ -1,0 +1,25 @@
+;;; appearance.el --- Dark appearance -*- lexical-binding: t; -*-
+(setq prelude-theme 'modus-vivendi)
+(mapc #'disable-theme custom-enabled-themes)
+(load-theme prelude-theme t)
+(setq frame-title-format '("Prelude — %b"))
+
+(menu-bar-mode -1)
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(when (fboundp 'horizontal-scroll-bar-mode) (horizontal-scroll-bar-mode -1))
+(dolist (parameter '((menu-bar-lines . 0)
+                     (vertical-scroll-bars . nil)
+                     (horizontal-scroll-bars . nil)))
+  (setf (alist-get (car parameter) default-frame-alist) (cdr parameter)))
+(dolist (frame (frame-list))
+  (modify-frame-parameters frame '((menu-bar-lines . 0)
+                                   (vertical-scroll-bars . nil)
+                                   (horizontal-scroll-bars . nil))))
+
+(custom-set-faces
+ '(cursor ((t (:background "#b7a1e5"))))
+ '(region ((t (:background "#403355" :foreground "#ffffff"))))
+ '(link ((t (:foreground "#b7a1e5" :underline t))))
+ '(font-lock-keyword-face ((t (:foreground "#b7a1e5"))))
+ '(mode-line ((t (:background "#30263f" :foreground "#f5f5f5"))))
+ '(mode-line-inactive ((t (:background "#17141c" :foreground "#a49aaf")))))

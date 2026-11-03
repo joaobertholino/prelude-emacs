@@ -1,0 +1,53 @@
+# -*- mode: snippet -*-
+# name: birkjour
+# key: birkjour
+# uuid: joaob-latex-birkjour
+# --
+\documentclass{birkjour}
+
+\usepackage[english]{babel}
+
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{cite}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath, amssymb, amsthm, amscd, amsbsy, mathtools, mathrsfs}
+\mathtoolsset{showonlyrefs}
+\usepackage{enumitem}
+
+\usepackage{graphicx, xcolor , float, pgfplots, tikz}
+\pgfplotsset{compat=newest}
+
+\usepackage[font=small]{caption}
+\usepackage{subcaption}
+\usepackage{footmisc}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{solution}{Solution}[example]
+
+\title[Title of article]{Title of article}
+\author[J.~Bertholino]{João Victor Bertholino Cestari}
+\address{Institute of Mathematics, Statistics and Computer Science, University of São Paulo\\\\Rua do Matão 1010, São Paulo, SP - CEP 05508-090, Brazil}
+\email{joao.bertholino@usp.br}
+
+\begin{document}
+\maketitle
+
+
+\bibliographystyle{amsplain}
+\bibliography{../References/references-all}
+\end{document}

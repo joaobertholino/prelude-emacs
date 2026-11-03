@@ -1,0 +1,47 @@
+# -*- mode: snippet -*-
+# name: general-temp
+# key: general-temp
+# uuid: joaob-latex-general-temp
+# --
+\documentclass{birkjour}
+
+\usepackage[english]{babel}
+
+\usepackage{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{cite}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath, amssymb, amsthm, amscd, amsbsy, mathtools, mathrsfs}
+\mathtoolsset{showonlyrefs}
+\usepackage{enumitem}
+
+\usepackage{graphicx, xcolor , float, pgfplots, tikz}
+\pgfplotsset{compat=newest}
+
+\usepackage[font=small]{caption}
+\usepackage{subcaption}
+\usepackage{footmisc}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{solution}{Solution}[example]
+
+\title[Title of article]{Title}
+
+\begin{document}
+\maketitle
+
+\end{document}

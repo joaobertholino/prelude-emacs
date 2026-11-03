@@ -1,0 +1,7 @@
+*.elc
+*~
+.#*
+\#*\#
+__pycache__/
+.cache/
+auto-save-list/

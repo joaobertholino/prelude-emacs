@@ -1,0 +1,52 @@
+# -*- mode: snippet -*-
+# name: templist
+# uuid: joaob-latex-templist
+# key: templist
+# condition: t
+# --
+\documentclass[12pt,a4paper,oneside]{article}
+
+\usepackage[english]{babel}
+\usepackage[margin=1cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath, amssymb, amsthm, amscd, amsbsy, mathtools, mathrsfs}
+\mathtoolsset{showonlyrefs}
+\usepackage{enumitem}
+
+\usepackage{graphicx, xcolor , float, pgfplots, tikz}
+\pgfplotsset{compat=newest}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{solution}{Solution}[example]
+
+\newenvironment{resolution}{\par\noindent\textbf{Resolution:}\small}{\par\vspace{1em}}
+
+\pagestyle{empty}
+\newcommand{\discipline}{Subject code}
+\newcommand{\name}{João Victor Bertholino Cestari}
+\newcommand{\usp}{18192436}
+\newcommand{\class}{X}
+\newcommand{\doc}{Title}
+
+\title{\textbf{\discipline} \text{--} \textbf{\doc}}
+\author{\name \\\\ \textbf{NUSP:} \usp \\\\ \textbf{class:} \class}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\end{document}
