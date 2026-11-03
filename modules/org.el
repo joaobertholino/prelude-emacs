@@ -1,7 +1,7 @@
 ;;; org.el -*- lexical-binding: t; -*-
 (with-eval-after-load 'org
   (setq org-directory "~/Org-Notes/"
-        org-agenda-files '("~/Org-Notes/tarefas.org" "~/Org-Notes/projetos.org")
+        org-agenda-files '("~/Org-Notes/task.org" "~/Org-Notes/project.org")
         org-default-notes-file (expand-file-name "task.org" org-directory)
         org-todo-keywords '((sequence "TODO(t)" "IN-PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))
         org-capture-templates

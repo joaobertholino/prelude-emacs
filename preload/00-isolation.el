@@ -13,3 +13,9 @@
       (add-to-list 'exec-path path)
       (unless (member path (split-string (or (getenv "PATH") "") path-separator t))
         (setenv "PATH" (concat path path-separator (getenv "PATH")))))))
+
+(let ((bin (expand-file-name "~/.local/share/prelude-tools/node_modules/.bin")))
+  (when (file-directory-p bin)
+    (add-to-list 'exec-path bin t)
+    (unless (member bin (split-string (or (getenv "PATH") "") path-separator t))
+      (setenv "PATH" (concat (getenv "PATH") path-separator bin)))))
