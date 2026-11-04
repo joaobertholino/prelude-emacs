@@ -41,8 +41,7 @@ provided by Eglot or AUCTeX; Copilot remains available independently.
 - Native Gentoo packages: `app-text/pandoc-bin`, `dev-util/shellcheck-bin`,
   `dev-python/black`, `dev-python/isort`, `dev-python/flake8`, and
   `sys-apps/the_silver_searcher`.
-- `shfmt` is supplied by a Nix GC root at `/opt/desktop-tools/shfmt`, with
-  `/usr/local/bin/shfmt` as its launcher.
+- `shfmt` is supplied by the native Gentoo package `dev-util/sh`.
 - TeX Live supplies latexmk, LuaLaTeX, Biber, ChkTeX and latexindent. The
   installed Zathura is used by F6; compilation does not launch the viewer.
 - The Node language servers are pinned in `tools/package.json` and its lockfile.
