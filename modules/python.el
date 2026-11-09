@@ -63,7 +63,9 @@
     (unless (and (process-live-p process)
                  (buffer-local-value 'python-shell--first-prompt-received
                                      (process-buffer process)))
-      (user-error "Python console did not become ready"))))
+      (user-error "Python console did not become ready")))
+  (when (called-interactively-p 'interactive)
+    (python-shell-switch-to-shell)))
 
 (defun my/prelude-python-send-buffer ()
   "Execute the entire buffer in the console, including its main block."
