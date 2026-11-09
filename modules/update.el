@@ -1,6 +1,29 @@
 ;;; update.el --- Update Prelude without blocking the editor -*- lexical-binding: t; -*-
 
 (require 'package)
+(require 'cl-lib)
+
+(defun my/prelude-upgrade-packages ()
+  "Upgrade packages and report partial failures as an update failure.
+Keep package.el's package selection, signature checks and upgrade behavior."
+  (let ((upgrade (symbol-function 'package-upgrade))
+        failures)
+    ;; `package-upgrade-all' demotes individual errors and normally returns
+    ;; successfully even when an upgrade failed. Record errors before its
+    ;; handler consumes them, let it finish the other packages, then fail.
+    (cl-letf (((symbol-function 'package-upgrade)
+               (lambda (&rest args)
+                 (condition-case err
+                     (apply upgrade args)
+                   (error
+                    (push (cons (car args) (error-message-string err)) failures)
+                    (signal (car err) (cdr err)))))))
+      (package-upgrade-all))
+    (when failures
+      (error "Package updates incomplete: %s"
+             (mapconcat (lambda (failure)
+                          (format "%s: %s" (car failure) (cdr failure)))
+                        (nreverse failures) "; ")))))
 
 (defun my/prelude-update-worker (framework packages archives framework-only)
   "Update FRAMEWORK and PACKAGES using ARCHIVES in a separate Emacs.
@@ -23,7 +46,7 @@ When FRAMEWORK-ONLY is non-nil, leave installed packages unchanged."
           package-native-compile nil
           native-comp-async-jobs-number 1)
     (package-initialize)
-    (package-upgrade-all))
+    (my/prelude-upgrade-packages))
   (princ "\nPrelude update finished. Save your work and restart Emacs when convenient.\n"))
 
 (defun my/prelude-update-sentinel (process event)
