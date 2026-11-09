@@ -63,3 +63,30 @@ Citar locations. Org capture and the agenda use `~/Org-Notes/task.org` and
 Existing Emacs sessions should be restarted after saving work to load updated
 ELPA packages. Tree-sitter is optional; this Emacs build uses the regular major
 modes, which support the configured completion, diagnostics and formatting.
+
+## Python
+
+`modules/python.el` configures Python 3 editing and execution. Pyright/Eglot
+provides completion, diagnostics and navigation through Corfu; Copilot remains
+available. Black is configured through Apheleia. Language-server discovery is
+restored after Prelude imports the shell environment.
+
+| Shortcut in a Python buffer | Action |
+| --- | --- |
+| F5 | Save and run the entire file in a fresh Python process |
+| Shift+F5 | Interrupt the file launched with F5 |
+| F6 / C-c C-z | Open the interactive Python console |
+| F7 | Send the selected region, or current function, to the console |
+| C-c C-c | Execute the whole buffer in the console, including its main block |
+| F8 | Jump to the next traceback error |
+
+F5 uses a separate output buffer for each file. Programs can read `input()`:
+type a response in the output buffer and press Enter. Traceback locations are
+clickable. Code runs only when requested, not automatically when opening or
+saving a Python file. The console waits for interpreter initialization before
+sending code.
+
+The runner prefers `.venv/bin/python` or `venv/bin/python` in the project, then
+the active `VIRTUAL_ENV`, then system `python3`. Run `python3 -m venv .venv` from a project terminal to create a virtual environment.
+Files outside a project run from their own directory rather than the HOME
+dotfiles repository root.
