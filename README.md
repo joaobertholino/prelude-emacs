@@ -7,6 +7,7 @@ current repository tree.
 ## Layout
 
 - `config.el`: loads the personal modules.
+- `early-init.el`: enables exact window sizing before the first frame is created.
 - `prelude-modules.el`: selects the enabled Prelude modules.
 - `preload/00-isolation.el`: early preferences and environment.
 - `modules/`: appearance, editing, LaTeX, Org, Copilot, Prettier and live server.
@@ -31,6 +32,10 @@ excluded. Do not store credentials or access tokens in configuration files.
 
 The repository history starts with the personal configuration only; the
 framework has its own separate upstream history.
+
+The desktop window manager controls the Prelude window's size and centering.
+Emacs accepts its exact pixel dimensions without rounding to character cells;
+no fixed screen coordinates are stored in the Emacs configuration.
 
 ## Updating Prelude
 
