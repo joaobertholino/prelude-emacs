@@ -32,6 +32,20 @@ excluded. Do not store credentials or access tokens in configuration files.
 The repository history starts with the personal configuration only; the
 framework has its own separate upstream history.
 
+## Updating Prelude
+
+Run `M-x prelude-update` to update the official framework and installed Emacs
+packages in a separate background process. Progress and errors appear in
+`*prelude-update*`; the editor and open buffers remain available. Use
+`C-u M-x prelude-update` to update only the framework. Save your work and restart
+Emacs when convenient after a successful update to load the new versions.
+
+The framework follows `origin/master` from `bbatsov/prelude` and accepts only
+fast-forward updates. Personal settings stay in this repository and are never
+reset or pulled by this command. Local framework edits stop the update with an
+explanation. The worker uses low CPU priority and disables bulk native package
+compilation to keep the desktop responsive.
+
 ## External dependencies
 
 The configured languages are Python, JavaScript/TypeScript/TSX, HTML, CSS,
