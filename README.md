@@ -78,6 +78,16 @@ Existing Emacs sessions should be restarted after saving work to load updated
 ELPA packages. Tree-sitter is optional; this Emacs build uses the regular major
 modes, which support the configured completion, diagnostics and formatting.
 
+## New LaTeX projects
+
+Choose **New LaTeX project** under **Getting started** on the welcome screen,
+or run `M-x my/prelude-new-latex-project`. Select a destination directory;
+new directories are created automatically. The command creates a minimal
+`main.tex` with the standard AMS mathematics packages and opens it in AUCTeX.
+Existing `main.tex` files are opened without being overwritten. The normal
+LaTeX autosave, compilation and F6 viewer settings continue to apply.
+Use TAB to select the welcome link and Enter to activate it.
+
 ## Python
 
 `modules/python.el` configures Python 3 editing and execution. Pyright/Eglot

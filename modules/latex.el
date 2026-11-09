@@ -1,6 +1,45 @@
 ;;; latex.el --- LaTeX builds and shortcuts -*- lexical-binding: t; -*-
 (require 'compile)
 
+(defconst my/prelude-latex-project-template
+  "\\documentclass[11pt]{article}
+\\usepackage{amsmath,amssymb,amsthm}
+
+\\title{Notes}
+\\author{}
+\\date{\\today}
+
+\\begin{document}
+\\maketitle
+
+\\section{Introduction}
+
+Write your mathematics here.
+
+\\end{document}
+"
+  "Initial document for a new personal LaTeX project.")
+
+(defun my/prelude-new-latex-project (directory)
+  "Create a LaTeX project in DIRECTORY and open its main.tex with AUCTeX.
+Create missing directories. If main.tex already exists, open it unchanged."
+  (interactive (list (read-directory-name "LaTeX project directory: " nil nil nil)))
+  (require 'latex)
+  (let* ((directory (file-name-as-directory (expand-file-name directory)))
+         (main (expand-file-name "main.tex" directory))
+         (existing (file-exists-p main)))
+    (make-directory directory t)
+    (unless existing
+      (with-temp-buffer
+        (insert my/prelude-latex-project-template)
+        ;; Exclusive creation also protects a file created after our check.
+        (write-region (point-min) (point-max) main nil 'silent nil 'excl)))
+    (find-file main)
+    (unless (derived-mode-p 'LaTeX-mode)
+      (LaTeX-mode))
+    (message (if existing "Opened existing LaTeX project: %s"
+               "Created LaTeX project: %s") directory)))
+
 (defvar my/prelude-latex-processes (make-hash-table :test #'equal))
 (defvar my/prelude-latex-pending (make-hash-table :test #'equal))
 
