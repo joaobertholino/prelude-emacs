@@ -1,39 +1,64 @@
 ;;; latex.el --- LaTeX builds and shortcuts -*- lexical-binding: t; -*-
 (require 'compile)
+(require 'cl-lib)
 
-(defconst my/prelude-latex-project-template
-  "\\documentclass[11pt]{article}
-\\usepackage{amsmath,amssymb,amsthm}
+(defconst my/prelude-latex-template-directory
+  (expand-file-name "../templates/latex/"
+                    (file-name-directory (or load-file-name buffer-file-name)))
+  "Directory containing personal LaTeX project templates.")
 
-\\title{Notes}
-\\author{}
-\\date{\\today}
+(defun my/prelude-select-latex-template ()
+  "Choose a project template and return its file or scaffold directory."
+  (let ((choice (completing-read
+                 "LaTeX template: "
+                 '("Birkjour (personal)" "Mathematics article" "Choose a .tex file…")
+                 nil t nil nil "Birkjour (personal)")))
+    (pcase choice
+      ("Birkjour (personal)"
+       (expand-file-name "birkjour/" my/prelude-latex-template-directory))
+      ("Mathematics article"
+       (expand-file-name "article.tex" my/prelude-latex-template-directory))
+      (_ (let ((file (read-file-name "LaTeX template (.tex): " nil nil t)))
+           (unless (equal (downcase (or (file-name-extension file) "")) "tex")
+             (user-error "Choose a .tex template file"))
+           file)))))
 
-\\begin{document}
-\\maketitle
+(defun my/prelude-latex-create-files (directory template)
+  "Create project files in DIRECTORY from TEMPLATE without overwriting data.
+TEMPLATE is a .tex file or the bundled Birkjour scaffold directory."
+  (let* ((scaffold (file-directory-p template))
+         (files (if scaffold '("birkjour.cls" "cite.sty" "spmpsci.bst" "main.tex")
+                  '("main.tex")))
+         (sources (mapcar (lambda (name)
+                            (if scaffold (expand-file-name name template) template))
+                          files)))
+    ;; Validate every source and destination before creating anything.
+    (dolist (source sources)
+      (unless (file-regular-p source)
+        (user-error "Template file is missing: %s" source)))
+    (dolist (name files)
+      (let ((target (expand-file-name name directory)))
+        (when (or (file-exists-p target) (file-symlink-p target))
+          (user-error "Project file already exists; nothing was overwritten: %s" target))))
+    (make-directory directory t)
+    (cl-mapc (lambda (source name)
+               ;; copy-file refuses an existing destination, including races
+               ;; after validation. Never clean up a user's files on failure.
+               (copy-file source (expand-file-name name directory) nil))
+             sources files)))
 
-\\section{Introduction}
-
-Write your mathematics here.
-
-\\end{document}
-"
-  "Initial document for a new personal LaTeX project.")
-
-(defun my/prelude-new-latex-project (directory)
+(defun my/prelude-new-latex-project (directory &optional template)
   "Create a LaTeX project in DIRECTORY and open its main.tex with AUCTeX.
-Create missing directories. If main.tex already exists, open it unchanged."
+Choose TEMPLATE interactively unless supplied, then create missing directories.
+If main.tex already exists, open it unchanged without asking for a template."
   (interactive (list (read-directory-name "LaTeX project directory: " nil nil nil)))
   (require 'latex)
   (let* ((directory (file-name-as-directory (expand-file-name directory)))
          (main (expand-file-name "main.tex" directory))
          (existing (file-exists-p main)))
-    (make-directory directory t)
     (unless existing
-      (with-temp-buffer
-        (insert my/prelude-latex-project-template)
-        ;; Exclusive creation also protects a file created after our check.
-        (write-region (point-min) (point-max) main nil 'silent nil 'excl)))
+      (my/prelude-latex-create-files
+       directory (or template (my/prelude-select-latex-template))))
     (find-file main)
     (unless (derived-mode-p 'LaTeX-mode)
       (LaTeX-mode))

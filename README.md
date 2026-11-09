@@ -82,11 +82,29 @@ modes, which support the configured completion, diagnostics and formatting.
 
 Choose **New LaTeX project** under **Getting started** on the welcome screen,
 or run `M-x my/prelude-new-latex-project`. Select a destination directory;
-new directories are created automatically. The command creates a minimal
-`main.tex` with the standard AMS mathematics packages and opens it in AUCTeX.
+new directories are created automatically. Next choose **Birkjour (personal)**,
+**Mathematics article**, or **Choose a .tex file…**. Birkjour is the default.
+The command creates `main.tex` from the selected template and opens it in AUCTeX.
 Existing `main.tex` files are opened without being overwritten. The normal
 LaTeX autosave, compilation and F6 viewer settings continue to apply.
 Use TAB to select the welcome link and Enter to activate it.
+
+The versioned templates are in `templates/latex/`. Customize
+`birkjour/main.tex` or `article.tex` there. The Birkjour document comes from the
+personal `snippets/LaTeX-mode/birkjour` snippet, with its snippet header removed
+and its escaped address line break converted to ordinary LaTeX. Its class and
+styles are byte-for-byte copies of the existing personal files in
+`~/.config/texlive/texmf/tex/latex/birkjour/`: `birkjour.cls`, `cite.sty`, and
+`spmpsci.bst`. The originals remain unchanged.
+
+Birkjour projects include those three local files, so compilation works in any
+destination directory without changing the global TeX search path. The old
+`../References/references-all` dependency is replaced by commented instructions
+for a project-local `references.bib`; no personal bibliography or article is
+copied automatically. Existing destination class/style files are protected too:
+if any would conflict, creation stops before writing files. Canceling template
+selection creates nothing. Selecting a custom `.tex` copies only that file;
+add any custom dependencies the document needs yourself.
 
 ## Python
 
