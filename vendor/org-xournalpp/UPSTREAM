@@ -1,0 +1,3 @@
+Source: https://github.com/vherrmann/org-xournalpp
+Commit: c09bd8b99d36c355d632b85ecbffb3b275802381
+Local compatibility overrides: ../../modules/xournalpp.el

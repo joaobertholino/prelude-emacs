@@ -1,0 +1,50 @@
+#+TITLE: org-xournalpp
+
+Minor mode for working with [[https://xournalpp.github.io/][xournalpp]] notes, sketches etc. in org mode.
+
+It's a fork from [[https://github.com/lepisma/org-krita][Org Krita]].
+
+** Quickstart
+The package is not on melpa yet. For installing, I would recommend downloading the repo as [[https://gitlab.com/vherrmann/org-xournalpp/-/archive/master/org-xournalpp-master.tar.gz][tarball]] or cloning it. Or if you are using [[https://github.com/quelpa/quelpa-use-package][quelpa-use-package]], you can do the following:
+
+#+begin_src emacs-lisp
+  (use-package org-xournalpp
+    :ensure t
+    :quelpa (org-xournalpp :fetcher gitlab :repo "vherrmann/org-xournalpp" :files ("*.el" "resources"))
+    :config
+    (add-hook 'org-mode-hook 'org-xournalpp-mode))
+#+end_src
+
+Or, if you are using Doom emacs you can add this to your =packages.el=:
+#+begin_src emacs-lisp
+(package! org-xournalpp
+  :recipe (:host gitlab
+           :repo "vherrmann/org-xournalpp"
+           :files ("resources" "*.el")))
+#+end_src
+
+and this to your =config.el=:
+#+begin_src emacs-lisp
+(use-package! org-xournalpp
+  :config
+  (add-hook 'org-mode-hook 'org-xournalpp-mode))
+#+end_src
+
+=org-xournalpp= creates a new org link type called =xournalpp= that:
+- when clicked on, opens xournalpp for editing the file linked, and
+- shows the updated image preview inline if =org-xournalpp-mode= is enabled.
+
+To use the package, you need to enable the minor mode =org-xournalpp-mode= in org buffer with =xournalpp= links like this =[[xournalpp:./some-file.xopp][image]]=. To create new files within the buffer itself, try calling =org-xournalpp-insert-new-image=.
+
+To change the default template, hack =#'org-xournalpp-template-getter=. For example, you can use your favorite selection/completion like =ivy= or =helm=.
+
+** Roadmap
+1. [X] Support for multiple templates.
+2. [X] Support for personal templates.
+3. [X] Support for not having to give the file a name by prefix argument & setting
+4. Support for multiple pages
+5. Support for better image settings (width, etc.)
+6. Better inline display. Right now we bypass org's inline display which means
+   we miss out on basic things like setting width and height for larger images
+   and other goodies. -> Partly fixed with this fork
+7. [X] Better naming scheme (use -- instead of - after org-xournalpp for noninteractive functions)

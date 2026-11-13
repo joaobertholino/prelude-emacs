@@ -137,3 +137,32 @@ The runner prefers `.venv/bin/python` or `venv/bin/python` in the project, then
 the active `VIRTUAL_ENV`, then system `python3`. Run `python3 -m venv .venv` from a project terminal to create a virtual environment.
 Files outside a project run from their own directory rather than the HOME
 dotfiles repository root.
+
+## Handwritten notes with Xournal++
+
+`modules/xournalpp.el` enables `org-xournalpp-mode` in Org buffers. The vendored
+GPL package is pinned to the revision recorded in `vendor/org-xournalpp/UPSTREAM`;
+its `f` and `s` dependencies are installed through Prelude. Editing opens the native
+Xournal++ application; the first page appears inline in graphical Emacs and updates
+after saving. Additional notebook pages remain accessible in Xournal++.
+
+| Shortcut in an Org buffer | Action |
+| --- | --- |
+| C-c x n | Choose a new .xopp path and an A4 ruled dark/light template, insert its link and open Xournal++ |
+| C-c x i | Insert an existing .xopp notebook |
+| C-c x r | Refresh previews |
+| C-c x o / C-c C-o | Open the notebook linked at point |
+
+Commands are also available through `M-x my/xournalpp-new`,
+`my/xournalpp-insert` and `my/xournalpp-refresh`. Links use the form
+`[[xournalpp:notes.xopp][Handwritten notes]]`. Save the Org file to retain the link
+and save in Xournal++ to retain the handwriting. Existing notebooks are never
+overwritten by the new-notebook command. The dark paper matches the current white
+pen; select a dark pen when using light paper.
+
+Local compatibility overrides export only the first page, limit preview rendering
+to 15 seconds, preserve the Org cursor, handle atomic notebook saves and release
+file watches when the buffer closes. Preview PNGs are hidden files beside the
+notebook (`.notes.png`); keep the original `.xopp` file with the Org document.
+Verification covers real notebook rendering, insertion, creation, overwrite
+protection, failed exports and resource cleanup (`tests/xournalpp-tests.el`).
