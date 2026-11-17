@@ -1,0 +1,206 @@
+% !TeX program = lualatex
+% Pôster A0 retrato: 841 x 1189 mm. Compilar com LuaLaTeX ou XeLaTeX.
+% Layout baseado na imagem fornecida; os tamanhos das fontes estão em pt.
+\documentclass{article}
+\usepackage{fix-cm}
+\usepackage[paperwidth=841mm,paperheight=1189mm,margin=0mm]{geometry}
+\usepackage{fontspec}
+\usepackage[brazilian]{babel}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+
+\IfFontExistsTF{Verdana}{\setmainfont{Verdana}}{%
+  \setmainfont{Liberation Sans}
+  \PackageWarningNoLine{poster-a0}{Verdana ausente; usando Liberation Sans}%
+}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{3em}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\definecolor{FaixaAzul}{RGB}{141,169,219}
+\definecolor{GraficoAzul}{RGB}{85,142,213}
+\definecolor{TabelaCabecalho}{RGB}{250,230,163}
+\definecolor{TabelaAlternada}{RGB}{255,251,209}
+
+% ======================================================================
+% CONTEÚDO EDITÁVEL (TAB percorre os campos quando inserido pelo snippet).
+% Use \\ para quebrar uma linha de título, autores ou instituições.
+% ======================================================================
+\newcommand{\TituloPoster}{Título do Trabalho (idêntico ao que foi aprovado), em fonte\\Verdana, tamanho 66}
+\newcommand{\AutoresPoster}{\underline{Autor X\textsuperscript{1}}; Autor Y\textsuperscript{2}; Autor Z\textsuperscript{3} (fonte Verdana, tamanho 48, sublinhar o nome do autor que apresentará o trabalho)}
+\newcommand{\InstituicoesPoster}{\textsuperscript{1}Instituição do Autor X, Endereço (\textit{email do autor responsável pelo trabalho}); \textsuperscript{2}Instituição do Autor Y, Endereço; \textsuperscript{3}Instituição do Autor Z, Endereço (fonte Verdana, tamanho 34)}
+\newcommand{\IntroducaoPoster}{Escrever a introdução em parágrafo único, com os objetivos ao final desta (fonte Verdana, tamanho 40).}
+\newcommand{\MetodosPoster}{Descrever o material e os métodos empregados no estudo (fonte Verdana, tamanho 40).}
+\newcommand{\ResultadosPoster}{Escrever os resultados e discussão (fonte Verdana, tamanho 40).}
+\newcommand{\TituloTabelaPoster}{Título da tabela (imediatamente acima da tabela, fonte Verdana, tamanho 36).}
+\newcommand{\DiscussaoPoster}{Escrever os resultados e discussão (fonte Verdana, tamanho 40).}
+\newcommand{\LegendaFiguraPoster}{Título da figura (imediatamente abaixo da figura, fonte Verdana, tamanho 36).}
+\newcommand{\ConclusaoPoster}{Escrever a(s) conclusão(ões) do estudo (fonte Verdana, tamanho 40).}
+\newcommand{\AgradecimentosPoster}{Escrever os agradecimentos, se houver (fonte Verdana, tamanho 40).}
+
+% Logo institucional: informe o nome/caminho de uma imagem PDF/PNG/JPG.
+% Deixe vazio para manter o quadro do modelo. Para removê-lo, use
+% \mostrarquadroinstitucionalfalse quando não houver imagem.
+\newcommand{\LogoInstitucional}{}
+\newcommand{\SemLogoInstitucional}{}
+\newif\ifmostrarquadroinstitucional
+\mostrarquadroinstitucionaltrue
+
+% Logo do evento: a imagem anexa é recortada apenas na impressão.
+% Na cópia do snippet este caminho aponta para o recurso do Prelude.
+% Para usar um logo próprio, substitua o conteúdo de \LogoEvento abaixo.
+\newcommand{\ArquivoReferencia}{referencia-poster.png}
+
+% Rodapé: pode conter texto ou \includegraphics[height=40mm]{arquivo}.
+\newcommand{\RodapePoster}{ESPAÇO DESTINADO A APLICAÇÃO DE LOGOMARCAS}
+
+% ======================================================================
+% LAYOUT: coordenadas em milímetros a partir do canto superior esquerdo.
+% O posicionamento fixo preserva a composição do modelo. Ao ampliar textos,
+% ajuste a altura/posição dos blocos para evitar que alcancem outro bloco.
+% ======================================================================
+\newcommand{\FontePoster}[1]{\fontsize{#1}{\dimexpr #1pt*11/10\relax}\selectfont}
+\newcommand{\TextoPoster}[5][40]{%
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt] at
+    ([xshift=#2mm,yshift=-#3mm]current page.north west)
+    {\begin{minipage}[t]{#4mm}\FontePoster{#1}#5\par\end{minipage}};%
+}
+\newcommand{\SecaoPoster}[4]{%
+  \fill[FaixaAzul] ([xshift=#1mm,yshift=-#2mm]current page.north west)
+    rectangle ++(#3mm,-39mm);
+  \node[anchor=center,inner sep=0pt,font=\bfseries\FontePoster{48}] at
+    ([xshift=\dimexpr #1mm+#3mm/2\relax,yshift=-\dimexpr #2mm+19.5mm\relax]current page.north west)
+    {#4};%
+}
+
+\newcommand{\LogoEvento}{%
+  \IfFileExists{\ArquivoReferencia}{%
+    % Recorte da região do logotipo no PNG original (819 x 1087 pixels).
+    \includegraphics[trim=36bp 939bp 638bp 20bp,clip,width=149mm,height=140mm]{\ArquivoReferencia}%
+  }{%
+    % Alternativa vetorial caso a imagem de referência seja movida.
+    \begin{minipage}[t][140mm][t]{149mm}
+      {\color{cyan!70!black}\rule{149mm}{1.2mm}}\par\vspace{-5mm}
+      {\color{yellow!80!orange}\rule{149mm}{1.2mm}}\par\vspace{1mm}
+      {\color{black!60}\bfseries\fontsize{255}{240}\selectfont 30\textsuperscript{\fontsize{95}{95}\selectfont o}}\par
+      {\bfseries\fontsize{89}{95}\selectfont\color{black!60}SIIC\color{cyan!70!black}USP}
+    \end{minipage}%
+  }%
+}
+
+% Tabela de exemplo; edite as células ou substitua por uma imagem.
+\newcommand{\TabelaPoster}{%
+  \begingroup
+  \FontePoster{32}
+  \setlength{\tabcolsep}{1.5mm}
+  \renewcommand{\arraystretch}{1.12}
+  \rowcolors{2}{TabelaAlternada}{white}
+  \begin{tabularx}{\linewidth}{@{}>{\RaggedRight\arraybackslash}p{70mm}
+      >{\Centering\arraybackslash}X
+      >{\Centering\arraybackslash}p{85mm}
+      >{\Centering\arraybackslash}p{85mm}@{}}
+    \rowcolor{TabelaCabecalho}
+    \textbf{Coluna 1} & \textbf{Coluna 2} & \textbf{Coluna 3} & \textbf{Coluna 4} \\
+    Linha 1 & (Fonte Verdana, tamanho 32) & & \\
+    Linha 2 & & & \\
+    Linha 3 & & & \\
+    Linha 4 & & & \\
+    Linha 5 & & & \\
+  \end{tabularx}
+  \endgroup
+}
+
+% Gráfico vetorial de exemplo; troque \GraficoPoster por
+% \includegraphics[width=\linewidth,height=190mm,keepaspectratio]{figura.pdf}
+% para inserir a sua figura.
+\newcommand{\GraficoPoster}{%
+  \begin{tikzpicture}[x=1mm,y=1mm]
+    \path[use as bounding box] (0,0) rectangle (379,184);
+    \draw[black!30,line width=.3mm] (34,30)--(371,30);
+    \foreach \valor in {0,5,10,15,20,25}{%
+      \draw[black!45,line width=.25mm] (32,{30+\valor*5.6})--(34,{30+\valor*5.6});
+      \node[anchor=east,font=\FontePoster{22},inner sep=1mm]
+        at (29,{30+\valor*5.6}) {\valor};
+    }
+    \foreach \pos/\valor/\rotulo/\letra in
+      {76/17/T1/ab,160/14/T2/bc,244/10/T3/c,328/21/T4/a}{%
+      \fill[GraficoAzul] ({\pos-17},30) rectangle ({\pos+17},{30+\valor*5.6});
+      \node[anchor=north,font=\FontePoster{22},inner sep=0pt] at (\pos,22) {\rotulo};
+      \node[anchor=south,font=\FontePoster{22},inner sep=0pt]
+        at (\pos,{43+\valor*5.6}) {\letra};
+    }
+    \foreach \pos/\valor in {76/17,244/10}{%
+      \draw[black!60,line width=.3mm]
+        (\pos,{30+(\valor-2)*5.6})--(\pos,{30+(\valor+2)*5.6});
+    }
+    \node[rotate=90,font=\FontePoster{24},inner sep=0pt] at (8,106) {Número de insetos};
+    \node[font=\FontePoster{24},inner sep=0pt] at (202,3) {Tratamentos};
+  \end{tikzpicture}%
+}
+
+\begin{document}
+\null
+\begin{tikzpicture}[remember picture,overlay]
+  % Moldura preta externa e fundo branco.
+  \draw[black!90,line width=9mm]
+    ([xshift=4.5mm,yshift=-4.5mm]current page.north west)
+    rectangle ([xshift=-4.5mm,yshift=4.5mm]current page.south east);
+
+  \TextoPoster{37}{22}{149}{\LogoEvento}
+
+  % Quadro do logo institucional (ou a imagem escolhida).
+  \ifx\LogoInstitucional\SemLogoInstitucional
+    \ifmostrarquadroinstitucional
+      \draw[FaixaAzul,line width=.4mm]
+        ([xshift=353mm,yshift=-36mm]current page.north west)
+        rectangle ++(239mm,-76mm);
+      \TextoPoster[48]{359}{43}{227}{\centering\bfseries
+        Inserir o logotipo\\institucional ou deletar\\este quadro}
+    \fi
+  \else
+    \TextoPoster{353}{36}{239}{\centering
+      \includegraphics[width=239mm,height=76mm,keepaspectratio]{\LogoInstitucional}}
+  \fi
+
+  % Título, autores e afiliações.
+  \TextoPoster[66]{40}{184}{761}{\centering\bfseries\TituloPoster}
+  \TextoPoster[48]{37}{254}{767}{\centering\bfseries\AutoresPoster}
+  \TextoPoster[34]{45}{295}{751}{\centering\InstituicoesPoster}
+
+  % Coluna esquerda.
+  \SecaoPoster{28}{344}{378}{Introdução}
+  \TextoPoster{30}{394}{374}{\justifying\hspace*{12mm}\IntroducaoPoster}
+  \SecaoPoster{28}{704}{378}{Materiais \& Métodos}
+  \TextoPoster{30}{756}{374}{\justifying\hspace*{12mm}\MetodosPoster}
+
+  % Coluna direita.
+  \SecaoPoster{443}{344}{378}{Resultados \& Discussão}
+  \TextoPoster{445}{392}{374}{\justifying\hspace*{12mm}\ResultadosPoster}
+  \TextoPoster[36]{435}{444}{387}{\justifying\textbf{Tabela 1.} \TituloTabelaPoster}
+  \TextoPoster[32]{435}{479}{387}{\TabelaPoster}
+  \TextoPoster{445}{610}{374}{\justifying\hspace*{12mm}\DiscussaoPoster}
+  \TextoPoster[22]{443}{665}{379}{\GraficoPoster}
+  \TextoPoster[36]{458}{861}{364}{\justifying\textbf{Figura 1.} \LegendaFiguraPoster}
+
+  \SecaoPoster{443}{900}{378}{Conclusão}
+  \TextoPoster{452}{953}{363}{\justifying\hspace*{18mm}\ConclusaoPoster}
+  \SecaoPoster{446}{993}{378}{Agradecimentos}
+  \TextoPoster{450}{1038}{367}{\justifying\hspace*{18mm}\AgradecimentosPoster}
+
+  % Faixa inferior e área reservada às logomarcas.
+  \fill[FaixaAzul] ([xshift=12mm,yshift=-1081mm]current page.north west)
+    rectangle ++(817mm,-21mm);
+  \TextoPoster[48]{37}{1124}{767}{\centering\bfseries\RodapePoster}
+\end{tikzpicture}
+\end{document}
+
+% Local Variables:
+% mode: LaTeX
+% TeX-engine: luatex
+% TeX-master: t
+% End:
