@@ -6,6 +6,10 @@
   (prelude-welcome--button
    "[New LaTeX project]" "Choose a directory and create or open main.tex"
    (lambda () (call-interactively #'my/prelude-new-latex-project)))
+  (insert "  ")
+  (prelude-welcome--button
+   "[New Lean project]" "Create a Lean 4 project, optionally with Mathlib"
+   (lambda () (call-interactively #'my/prelude-new-lean-project)))
   (insert "\n"))
 
 (with-eval-after-load 'prelude-welcome

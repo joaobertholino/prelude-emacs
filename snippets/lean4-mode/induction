@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: induction on a natural number
+# key: induction
+# --
+induction ${1:n} with
+| zero =>
+  ${2:simp}
+| succ n ih =>
+  ${0:simp_all}

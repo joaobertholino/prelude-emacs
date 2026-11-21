@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: theorem
+# key: theorem
+# --
+theorem ${1:my_theorem} ${2:(P : Prop) (h : P)} : ${3:P} := by
+  ${0:exact h}

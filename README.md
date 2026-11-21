@@ -166,3 +166,11 @@ file watches when the buffer closes. Preview PNGs are hidden files beside the
 notebook (`.notes.png`); keep the original `.xopp` file with the Org document.
 Verification covers real notebook rendering, insertion, creation, overwrite
 protection, failed exports and resource cleanup (`tests/xournalpp-tests.el`).
+
+## Lean 4
+
+`modules/lean.el` adds Lean4-Mode, a dedicated LSP client, live proof goals,
+Corfu completion, diagnostics, mathematical Unicode input, and Lake/Mathlib
+project commands. The welcome screen includes **New Lean project**.
+See [LEAN4.md](LEAN4.md) for shortcuts, toolchain selection, examples and
+editor compatibility notes.

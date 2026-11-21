@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: example
+# key: example
+# --
+example ${1:(P : Prop) (h : P)} : ${2:P} := by
+  ${0:exact h}
