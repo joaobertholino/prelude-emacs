@@ -10,6 +10,10 @@
   (prelude-welcome--button
    "[New Lean project]" "Create a Lean 4 project, optionally with Mathlib"
    (lambda () (call-interactively #'my/prelude-new-lean-project)))
+  (insert "  ")
+  (prelude-welcome--button
+   "[Email]" "Open Gmail in Prelude"
+   (lambda () (call-interactively #'my/prelude-mail-open)))
   (insert "\n"))
 
 (with-eval-after-load 'prelude-welcome

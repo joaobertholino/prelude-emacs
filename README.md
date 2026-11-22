@@ -174,3 +174,10 @@ Corfu completion, diagnostics, mathematical Unicode input, and Lake/Mathlib
 project commands. The welcome screen includes **New Lean project**.
 See [LEAN4.md](LEAN4.md) for shortcuts, toolchain selection, examples and
 editor compatibility notes.
+
+## Email
+
+`modules/mail.el` configures Gmail IMAP/SMTP in Gnus, using the encrypted
+GNOME Login keyring through auth-source. `C-c m` opens mail and `C-c M`
+composes a message. Prelude Mail is registered as the mailto handler.
+See [MAIL.md](MAIL.md) for authentication and usage.
