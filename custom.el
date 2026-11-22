@@ -16,7 +16,7 @@
                 operate-on-number orderless projectile
                 rainbow-delimiters rainbow-mode smartparens super-save
                 typescript-mode undo-tree vertico volatile-highlights
-                web-mode yaml-mode zenburn-theme zop-to-char)))
+                vterm web-mode yaml-mode zenburn-theme zop-to-char)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
